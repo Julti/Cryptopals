@@ -14,4 +14,15 @@ public class Base16 {
 	public static char getFromTable(int t) {
 		return base16Map.charAt(t);
 	}
+	public static String hexToString(byte[] array) {
+		String response = "";
+		for (int i = 0; i < array.length-1; i+=2) {
+			byte a = (byte) (array[i]<<4);
+			byte b = array[i+1];
+			char c = ((char)(array[i]));
+			response+=c;
+		}
+		return response;
+	}
+	
 }
