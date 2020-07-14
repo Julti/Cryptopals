@@ -11,6 +11,23 @@ public class Base16 {
 		}
 		return x;
 	}
+	public static String byteAsciiArrayToString(byte[] source) {
+		String x = "";
+		for (int i = 0; i < source.length; i++) {
+			x=x+getFromTable(source[i]>>4);
+			x=x+getFromTable(source[i]&0x0F);
+		}
+		return x;
+	}
+	public static byte[] stringAsByteArrayHex16(String src) {
+		byte[] out = new byte[src.length()];
+		for (int i = 0; i < src.length(); i++) {
+		
+					out[i]=(byte)base16Map.indexOf(src.charAt(i));
+				
+		}
+		return out;
+	}
 	public static char getFromTable(int t) {
 		return base16Map.charAt(t);
 	}
