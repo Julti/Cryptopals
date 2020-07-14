@@ -1,7 +1,13 @@
 package com.main.main;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import com.main.base64.Base16;
 import com.main.base64.Base64;
+import com.main.encoding.Control;
 import com.main.encoding.Encoding;
 import com.main.encoding.Scoring;
 
@@ -11,6 +17,8 @@ public class Main {
 		set1Challenge1();
 		set1Challenge2();
 		set1Challenge3();
+		System.out.println("Set 1 Challenge 4");
+		set1Challenge4();
 		//System.out.println(Scoring.score("Yesterday I saw a red point on the base"));
 	}
 	public static void set1Challenge1() {
@@ -25,6 +33,30 @@ public class Main {
 	}
 	public static void set1Challenge3() {
 		String a ="1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
-		Encoding.checkXorOverTable(Encoding.stringAsByteArray(a));
+		Control c =Encoding.checkXorOverTable(Encoding.stringAsByteArray(a));
+		System.out.println(c.s+" "+c.c);
+	}
+	public static void set1Challenge4() {
+		try {
+			Scanner s = new Scanner(new File("./rsc/4.txt"));
+			ArrayList<Control> c = new ArrayList<Control>();
+			while(s.hasNext()) {
+				String x = s.nextLine();
+				c.add(Encoding.checkXorOverTable(Encoding.stringAsByteArray(x)));
+			}
+			s.close();
+			String ans ="";
+			double min = Double.MAX_VALUE;
+			for (int i = 0; i < c.size(); i++) {
+				if(c.get(i).score<=min) {
+					ans=c.get(i).s;
+					min = c.get(i).score;
+				}
+			}
+			System.out.println(ans);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
