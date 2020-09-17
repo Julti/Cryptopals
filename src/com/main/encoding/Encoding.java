@@ -1,5 +1,7 @@
 package com.main.encoding;
 
+import java.util.Hashtable;
+
 import com.main.base64.Base16;
 
 public class Encoding {
@@ -55,5 +57,25 @@ public class Encoding {
 			}
 		}
 		return ct;
+	}
+	public static int findKeySize(String in) {
+		int MINKEYSIZE =2;
+		int MAXKEYSIZE = 40;
+		double keysize = 2.0;
+		Hashtable<Integer, Double> keySizesMap = new Hashtable<Integer, Double>();
+		for (int i = MINKEYSIZE; i <=MAXKEYSIZE; i++) {
+			String a ="";
+			String b = "";
+			for (int j = 0; j <= i; j++) {
+				a = a+in.charAt(j);
+				b = b+in.charAt(i+j+1);
+			}
+			int hd = Utils.computeHammingDistance(a, b);
+			double t =hd/keysize;
+			System.out.println("KEYSIZE::"+i+" HD:: "+(t));
+			keySizesMap.put(i, t);
+			keysize++;
+		}
+		return 0;
 	}
 }

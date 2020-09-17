@@ -68,6 +68,17 @@ public class Main {
 		System.out.println(Base16.byteAsciiArrayToString(ct));
 	}
 	public static void set1Challenge6() {
-		System.out.println(Utils.computeHammingDistance("this is a test", "wokka wokka!!!"));
-	}
+	
+		try {
+			Scanner s = new Scanner(new File("./rsc/6.txt"));
+			String in = "";
+			while(s.hasNext()) {
+				in+= s.nextLine();
+			}
+			Encoding.findKeySize(in);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			}
 }
