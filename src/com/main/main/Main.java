@@ -9,6 +9,7 @@ import com.main.base64.Base16;
 import com.main.base64.Base64;
 import com.main.encoding.Control;
 import com.main.encoding.Encoding;
+import com.main.encoding.Utils;
 
 public class Main {
 
@@ -19,6 +20,7 @@ public class Main {
 		System.out.println("Set 1 Challenge 4");
 		set1Challenge4();
 		set1Challenge5();
+		set1Challenge6();
 		//System.out.println(Scoring.score("Yesterday I saw a red point on the base"));
 	}
 	public static void set1Challenge1() {
@@ -64,5 +66,8 @@ public class Main {
 		String key = "ICE";
 		byte[] ct = Encoding.encodeXORFixedKey(Encoding.stringAsByteArray(s), Encoding.stringAsByteArray(key));
 		System.out.println(Base16.byteAsciiArrayToString(ct));
+	}
+	public static void set1Challenge6() {
+		System.out.println(Utils.computeHammingDistance("this is a test", "wokka wokka!!!"));
 	}
 }
