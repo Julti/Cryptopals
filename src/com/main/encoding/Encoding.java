@@ -58,7 +58,7 @@ public class Encoding {
 		}
 		return ct;
 	}
-	public static int findKeySize(String in) {
+	public static Hashtable<Integer, Double> findKeySize(String in) {
 		int MINKEYSIZE =2;
 		int MAXKEYSIZE = 40;
 		double keysize = 2.0;
@@ -76,6 +76,6 @@ public class Encoding {
 			keySizesMap.put(i, t);
 			keysize++;
 		}
-		return 0;
+		return keySizesMap;
 	}
 }

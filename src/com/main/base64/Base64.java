@@ -32,19 +32,20 @@ public class Base64 {
 		}
 		return s;
 	}
-	public static byte[] fromBase64ToAscii(String base64source) {
+	public static byte[] fromBase64ToAscii(byte[] base64source) {
 		ArrayList<Byte> output = new ArrayList<Byte>();
-		for (int i = 0; i <= base64source.length()-4; i+=4) {
-			byte a = (byte) (base64Map.indexOf(base64source.charAt(i))<<2&0x3F);
-			byte b = (byte) (base64Map.indexOf(base64source.charAt(i+1))>>6&0x3F);
+		for (int i = 0; i < base64source.length; i+=4) {
+			int x =(int)base64Map.indexOf(base64source[i+2])<<6&0xC0;
+			byte a = (byte) (base64Map.indexOf(base64source[i])<<2&0xFC);
+			byte b = (byte) (base64Map.indexOf(base64source[i+1])>>4&0x03);
 			byte n = (byte) (a|b);
 			output.add(n);
-			byte c = (byte) (base64Map.indexOf(base64source.charAt(i+1))<<4&0x3F);
-			byte d = (byte) (base64Map.indexOf(base64source.charAt(i+2))>>4&0x3F);
+			byte c = (byte) (base64Map.indexOf(base64source[i+1])<<4&0xF0);
+			byte d = (byte) (base64Map.indexOf(base64source[i+2])>>2&0x0F);
 			n = (byte) (c|d);
 			output.add(n);
-			byte e = (byte) (base64Map.indexOf(base64source.charAt(i+2))<<2&0x3F);
-			byte f = (byte) (base64Map.indexOf(base64source.charAt(i+3))&0x3F);
+			byte e = (byte) (base64Map.indexOf(base64source[i+2])<<6&0xC0);
+			byte f = (byte) (base64Map.indexOf(base64source[i+3])&0x3F);
 			n = (byte) (e|f);
 			output.add(n);
 		}

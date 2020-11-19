@@ -11,7 +11,6 @@ import com.main.base64.Base16;
 import com.main.base64.Base64;
 import com.main.encoding.Control;
 import com.main.encoding.Encoding;
-import com.main.encoding.Scoring;
 import com.main.encoding.Utils;
 
 public class Main {
@@ -24,8 +23,16 @@ public class Main {
 		set1Challenge4();
 		set1Challenge5();
 		set1Challenge6();
-		System.out.println(Scoring.score("Yesterday I saw a red point on the base"));
+		//System.out.println(Scoring.score("Yesterday I saw a red point on the base"));
+		//test();
 
+	}
+	public static void test() {
+		String base = "Man";
+		String bk =new String(Base64.fromAsciiToBase64(base.getBytes()));
+		String org = new String(Base64.fromBase64ToAscii(bk.getBytes()));
+		System.out.println(bk);
+		System.out.println(org);
 	}
 	
 	public static void set1Challenge1() {
