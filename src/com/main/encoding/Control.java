@@ -1,6 +1,10 @@
 package com.main.encoding;
 
 public class Control {
+	@Override
+	public String toString() {
+		return "Control [s=" + s + ", c=" + c + ", score=" + score + "]";
+	}
 	public String s;
 	public char c;
 	public double score;

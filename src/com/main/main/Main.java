@@ -2,13 +2,16 @@ package com.main.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import com.main.base64.Base16;
 import com.main.base64.Base64;
 import com.main.encoding.Control;
 import com.main.encoding.Encoding;
+import com.main.encoding.Scoring;
 import com.main.encoding.Utils;
 
 public class Main {
@@ -21,8 +24,10 @@ public class Main {
 		set1Challenge4();
 		set1Challenge5();
 		set1Challenge6();
-		//System.out.println(Scoring.score("Yesterday I saw a red point on the base"));
+		System.out.println(Scoring.score("Yesterday I saw a red point on the base"));
+
 	}
+	
 	public static void set1Challenge1() {
 		String a = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
 		byte [] bytesFromSource = Base16.stringAsByteArrayHex16(a);
@@ -75,7 +80,12 @@ public class Main {
 			while(s.hasNext()) {
 				in+= s.nextLine();
 			}
-			Encoding.findKeySize(in);
+			/*ArrayList<Entry<Integer, Double>> keysizes = Encoding.findKeySize(in);
+			byte[] splitted = Encoding.stringAsByteArray(in);
+			
+			for (int i = 0; i < keysizes.size(); i++) {
+				byte[][] broken = Utils.transposeMatrix(Utils.generateMatrix(splitted, keysizes.get(i).getKey()));
+			}*/
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
