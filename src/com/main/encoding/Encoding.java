@@ -1,12 +1,14 @@
 package com.main.encoding;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Map.Entry;
 
 import com.main.base64.Base16;
 
 public class Encoding {
 	static char[] baseHex= {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
-	static char[] table = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9'};
+	static char[] table = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9',' '};
 	
 	public static byte[] stringAsByteArray(String src) {
 		byte[] out = new byte[src.length()];
@@ -29,6 +31,13 @@ public class Encoding {
 		}
 		return c;
 	}
+	public static byte[]  fixedXORByte(byte[] a,byte b) {
+		byte[] c = new byte[a.length];
+		for (int i = 0; i < c.length-1; i+=2) {
+			c[i]=(byte) (a[i]^b);
+		}
+		return c;
+	}
 	public static Control checkXorOverTable(byte[] a) {
 		String winner = "";
 		char v = ' ';
@@ -36,6 +45,22 @@ public class Encoding {
 		for (int i = 0; i < table.length; i++) {
 			byte[] checked = fixedXOR(a,(byte)table[i]);
 			String response=Base16.hexToString(checked);
+			double score = Scoring.score(response);
+			if(score<=base) {
+				base = score;
+				winner = response;
+				v =table[i];
+			}
+		}
+		return new Control(winner, v, base);
+	}
+	public static Control checkXorOverTableByte(byte[] a) {
+		String winner = "";
+		char v = ' ';
+		double base = Double.MAX_VALUE;
+		for (int i = 0; i < table.length; i++) {
+			byte[] checked = fixedXORByte(a,(byte)table[i]);
+			String response=new String(checked);
 			double score = Scoring.score(response);
 			if(score<=base) {
 				base = score;
@@ -58,7 +83,7 @@ public class Encoding {
 		}
 		return ct;
 	}
-	public static Hashtable<Integer, Double> findKeySize(String in) {
+	public static ArrayList<Entry<Integer,Double>> findKeySize(String in) {
 		int MINKEYSIZE =2;
 		int MAXKEYSIZE = 40;
 		double keysize = 2.0;
@@ -76,6 +101,7 @@ public class Encoding {
 			keySizesMap.put(i, t);
 			keysize++;
 		}
-		return keySizesMap;
+		ArrayList<Entry<Integer,Double>> map=new ArrayList<Entry<Integer,Double>>(keySizesMap.entrySet());
+		return map;
 	}
 }

@@ -36,7 +36,7 @@ public class Utils {
 		byte [][] broken = new byte[input.length/size][size];
 		for (int i = 0; i < broken.length; i++) {
 			for (int j = 0; j < broken[i].length; j++) {
-				broken[i][j] = input[j+i];
+				broken[i][j] = input[j+(size*i)];
 			}
 		}
 		return broken;

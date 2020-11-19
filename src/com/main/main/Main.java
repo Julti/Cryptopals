@@ -87,12 +87,18 @@ public class Main {
 			while(s.hasNext()) {
 				in+= s.nextLine();
 			}
-			/*ArrayList<Entry<Integer, Double>> keysizes = Encoding.findKeySize(in);
-			byte[] splitted = Encoding.stringAsByteArray(in);
+			ArrayList<Entry<Integer, Double>> keysizes = Encoding.findKeySize(new String(Base64.fromBase64ToAscii(in.getBytes())));
+			byte[] splitted = Base64.fromBase64ToAscii(in.getBytes());
 			
 			for (int i = 0; i < keysizes.size(); i++) {
 				byte[][] broken = Utils.transposeMatrix(Utils.generateMatrix(splitted, keysizes.get(i).getKey()));
-			}*/
+				String t = "";
+				for (int j = 0; j < broken.length; j++) {
+					Control c=Encoding.checkXorOverTableByte(broken[j]);
+					t+=c.c;
+				}
+				System.out.println("KEYSISE::"+keysizes.get(i).getKey()+"::"+t);
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
