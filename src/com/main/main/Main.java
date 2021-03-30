@@ -16,16 +16,16 @@ import com.main.encoding.Utils;
 public class Main {
 
 	public static void main(String[] args) {
-		set1Challenge1();
+		/*set1Challenge1();
 		set1Challenge2();
 		set1Challenge3();
 		System.out.println("Set 1 Challenge 4");
 		set1Challenge4();
 		set1Challenge5();
-		set1Challenge6();
+		set1Challenge6();*/
 		//System.out.println(Scoring.score("Yesterday I saw a red point on the base"));
 		//test();
-
+		System.out.println(new String(Base64.fromBase64ToAscii("ZGVtbzpkZW1v".getBytes())));
 	}
 	public static void test() {
 		String base = "Man";
