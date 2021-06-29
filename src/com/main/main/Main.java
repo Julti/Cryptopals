@@ -3,9 +3,8 @@ package com.main.main;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Scanner;
 
 import com.main.base64.Base16;
 import com.main.base64.Base64;
@@ -16,16 +15,13 @@ import com.main.encoding.Utils;
 public class Main {
 
 	public static void main(String[] args) {
-		/*set1Challenge1();
+		set1Challenge1();
 		set1Challenge2();
 		set1Challenge3();
 		System.out.println("Set 1 Challenge 4");
 		set1Challenge4();
 		set1Challenge5();
-		set1Challenge6();*/
-		//System.out.println(Scoring.score("Yesterday I saw a red point on the base"));
-		//test();
-		System.out.println(new String(Base64.fromBase64ToAscii("ZGVtbzpkZW1v".getBytes())));
+		set1Challenge6();
 	}
 	public static void test() {
 		String base = "Man";
@@ -82,6 +78,7 @@ public class Main {
 	public static void set1Challenge6() {
 	
 		try {
+			System.out.println(Utils.computeHammingDistance("this is a test", "wokka wokka!!!"));
 			Scanner s = new Scanner(new File("./rsc/6.txt"));
 			String in = "";
 			while(s.hasNext()) {
@@ -89,8 +86,8 @@ public class Main {
 			}
 			ArrayList<Entry<Integer, Double>> keysizes = Encoding.findKeySize(new String(Base64.fromBase64ToAscii(in.getBytes())));
 			byte[] splitted = Base64.fromBase64ToAscii(in.getBytes());
-			
-			for (int i = 0; i < keysizes.size(); i++) {
+			keysizes = sortByValue(keysizes);
+			for (int i = 0; i < 3; i++) {
 				byte[][] broken = Utils.transposeMatrix(Utils.generateMatrix(splitted, keysizes.get(i).getKey()));
 				String t = "";
 				for (int j = 0; j < broken.length; j++) {
@@ -104,4 +101,23 @@ public class Main {
 			e.printStackTrace();
 		}
 			}
+	public static ArrayList<Entry<Integer, Double>> sortByValue(ArrayList<Entry<Integer, Double>> list)
+    {
+ 
+        // Sort the list
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Double> >() {
+            public int compare(Map.Entry<Integer, Double> o1,
+                               Map.Entry<Integer, Double> o2)
+            {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+         
+        // put data from sorted list to hashmap
+        ArrayList<Entry<Integer, Double>> temp = new ArrayList<Map.Entry<Integer,Double>>();
+        for (Map.Entry<Integer, Double> aa : list) {
+            temp.add(aa);
+        }
+        return temp;
+    }
 }

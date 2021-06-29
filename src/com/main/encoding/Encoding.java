@@ -8,7 +8,7 @@ import com.main.base64.Base16;
 
 public class Encoding {
 	static char[] baseHex= {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
-	static char[] table = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9',' '};
+	static char[] table = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9',' ',':'};
 	
 	public static byte[] stringAsByteArray(String src) {
 		byte[] out = new byte[src.length()];
@@ -89,19 +89,18 @@ public class Encoding {
 		double keysize = 2.0;
 		Hashtable<Integer, Double> keySizesMap = new Hashtable<Integer, Double>();
 		for (int i = MINKEYSIZE; i <=MAXKEYSIZE; i++) {
-			String a ="";
-			String b = "";
-			for (int j = 0; j <= i; j++) {
-				a = a+in.charAt(j);
-				b = b+in.charAt(i+j+1);
-			}
-			int hd = Utils.computeHammingDistance(a, b);
+			String a =in.substring(0,i);
+			String b = in.substring(i,2*i);
+			String c =in.substring(2*i,3*i);
+			String d = in.substring(3*i,4*i);
+			int hd = Utils.computeHammingDistance(a, b)+Utils.computeHammingDistance(a, c)+Utils.computeHammingDistance(a, d)+Utils.computeHammingDistance(b, c)+Utils.computeHammingDistance(b, d)+Utils.computeHammingDistance(c, b);
 			double t =hd/keysize;
-			System.out.println("KEYSIZE::"+i+" HD:: "+(t));
+			//System.out.println("KEYSIZE::"+i+" HD:: "+(t));
 			keySizesMap.put(i, t);
 			keysize++;
 		}
 		ArrayList<Entry<Integer,Double>> map=new ArrayList<Entry<Integer,Double>>(keySizesMap.entrySet());
 		return map;
 	}
+	
 }
