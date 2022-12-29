@@ -100,7 +100,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			}
+	}
 	public static ArrayList<Entry<Integer, Double>> sortByValue(ArrayList<Entry<Integer, Double>> list)
     {
  
